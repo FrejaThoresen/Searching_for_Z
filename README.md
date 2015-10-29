@@ -1,4 +1,9 @@
-This project is my first attemp to find Z bosons from dummy data.
+Searching for Z
+===============
+This project is my first attemp to find Z bosons from dummy data
+
+Set up the project
+------------------
 
 Before using the project you need to do:
 
