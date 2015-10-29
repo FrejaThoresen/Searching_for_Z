@@ -127,8 +127,8 @@ void CutsInxAOD :: analyzeZbosonsFromElectrons(const xAOD::ElectronContainer* el
     analyzeElectrons(electrons);
 
     if (e_vector_neg.size() != 0 && e_vector_pos.size() != 0) {
-        for (int i = 0; i < e_vector_pos.size(); i++) {
-            for (int j = 0; j < e_vector_neg.size(); j++) {
+        for (unsigned int i = 0; i < e_vector_pos.size(); i++) {
+            for (unsigned int j = 0; j < e_vector_neg.size(); j++) {
                 if ((e_vector_pos[i] + e_vector_neg[j]).M() < 400000) {
 
                     Z_from_electrons.push_back(e_vector_pos[i] + e_vector_neg[j]);
@@ -145,7 +145,7 @@ void CutsInxAOD :: analyzeZbosonsFromJets(const xAOD::JetContainer* jets,JetClea
     analyzeJets(jets,m_jetCleaning);
 
     if (jet_vector.size() != 0) {
-        for (int i = 0; i < jet_vector.size() - 1; i = i + 2) {
+        for (unsigned int i = 0; i < jet_vector.size() - 1; i = i + 2) {
             //if ((jet_vector[i].M() + jet_vector[i+1].M()) < 400000) {
             Z_from_jets.push_back(jet_vector[i] + jet_vector[i+1]);
         }
@@ -158,8 +158,8 @@ void CutsInxAOD :: analyzeZbosonsFromMuons(const xAOD::MuonContainer* muons) {
     analyzeMuons(muons);
 
     if (mu_vector_neg.size() != 0 && mu_vector_pos.size() != 0) {
-        for (int i = 0; i < mu_vector_pos.size(); i++) {
-            for (int j = 0; j < mu_vector_neg.size(); j++) {
+        for (unsigned int i = 0; i < mu_vector_pos.size(); i++) {
+            for (unsigned int j = 0; j < mu_vector_neg.size(); j++) {
                 if ((mu_vector_pos[i] + mu_vector_neg[j]).M() < 400000) {
                     Z_from_muons.push_back(mu_vector_pos[i] + mu_vector_neg[j]);
                 }
@@ -169,7 +169,7 @@ void CutsInxAOD :: analyzeZbosonsFromMuons(const xAOD::MuonContainer* muons) {
 }
 
 void CutsInxAOD :: printZbosonsFromElectrons() {
-    for (int i = 0; i < Z_from_electrons.size(); i++) {
+    for (unsigned int i = 0; i < Z_from_electrons.size(); i++) {
         Info("execute()", "  Z boson from electrons      pt = %.2f GeV   eta = %.3f   phi = %.3f    m = %.1f",
              Z_from_electrons[i].Pt() * 0.001,
              Z_from_electrons[i].Eta(),
@@ -191,7 +191,7 @@ void CutsInxAOD :: printZbosonsFromElectrons() {
 }
 
 void CutsInxAOD :: printZbosonsFromMuons() {
-    for (int i = 0; i < Z_from_muons.size(); i++) {
+    for (unsigned int i = 0; i < Z_from_muons.size(); i++) {
         Info("execute()", "  Z boson from muons      pt = %.2f GeV   eta = %.3f   phi = %.3f    m = %.1f",
              Z_from_muons[i].Pt() * 0.001,
              Z_from_muons[i].Eta(),

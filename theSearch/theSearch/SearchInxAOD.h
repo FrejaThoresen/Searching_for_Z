@@ -6,6 +6,7 @@
 #include <TTree.h>
 #include "TLorentzVector.h"
 #include "TBranch.h"
+#include "TNtuple.h"
 using namespace std;
 
 class SearchInxAOD : public EL::Algorithm
@@ -15,21 +16,21 @@ class SearchInxAOD : public EL::Algorithm
 public:
     // float cutValue;
     string outputName;
-    TTree* tree_Z_mu; //!
-    TTree* tree_Z_e; //!
-    TTree* tree_Z_j; //!
+    TNtuple* tree_Z_mu; //!
+    TNtuple* tree_Z_e; //!
+    TNtuple* tree_Z_j; //!
 
 
     int EventNumber; //!
 
-
+/*
     TBranch *branch_e_m;//!
     TBranch *branch_mu_m ;//!
     TBranch *branch_j_m ;//!
     TBranch *branch_e_pt;//!
     TBranch *branch_mu_pt;//!
     TBranch *branch_j_pt ;//!
-
+*/
     //m_jetCleaning = new JetCleaningTool("JetCleaning");
 
 
@@ -37,12 +38,12 @@ public:
     vector<TLorentzVector> Z_from_electrons; //!
     vector<TLorentzVector> Z_from_jets; //!
 
-    double Z_m_e;//!
-    double Z_m_mu;//!
-    double Z_m_j;//!
-    double Z_pt_e;//!
-    double Z_pt_mu;//!
-    double Z_pt_j;//!
+    Float_t Z_m_e;//!
+    Float_t Z_m_mu;//!
+    Float_t Z_m_j;//!
+    Float_t Z_pt_e;//!
+    Float_t Z_pt_mu;//!
+    Float_t Z_pt_j;//!
 
     // variables that don't get filled at submission time should be
     // protected from being send from the submission node to the worker

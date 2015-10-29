@@ -76,9 +76,9 @@ EL::StatusCode SearchInxAOD :: histInitialize ()
     // get the output file, create a new TTree and connect it to that output
     // define what branches will go in that tree
     TFile *outputFile = wk()->getOutputFile (outputName);
-    tree_Z_mu = new TTree ("tree_Z_mu", "tree_Z_mu");
-    tree_Z_e = new TTree ("tree_Z_e", "tree_Z_e");
-    tree_Z_j = new TTree ("tree_Z_j", "tree_Z_j");
+    tree_Z_mu = new TNtuple("tree_Z_mu", "tree_Z_mu","Z_m_mu:Z_pt_mu");
+    tree_Z_e = new TNtuple("tree_Z_e", "tree_Z_e","Z_m_e:Z_pt_e");
+    tree_Z_j = new TNtuple("tree_Z_j", "tree_Z_j","Z_m_j:Z_pt_j");
 
 
     tree_Z_mu->SetDirectory (outputFile);
@@ -86,15 +86,6 @@ EL::StatusCode SearchInxAOD :: histInitialize ()
     tree_Z_j->SetDirectory (outputFile);
 
     //tree->Branch("EventNumber", &EventNumber);
-    tree_Z_e->Branch("Z_m_from_electrons",&Z_m_e,"Z_m_from_electrons/D");
-    tree_Z_e->Branch("Z_pt_from_electrons",&Z_pt_e,"Z_pt_from_electrons/D");
-
-    tree_Z_mu->Branch("Z_pt_from_muons",&Z_pt_mu,"Z_pt_from_muons/D");
-    tree_Z_mu->Branch("Z_m_from_muons",&Z_m_mu,"Z_m_from_muons/D");
-
-    tree_Z_j->Branch("Z_pt_from_jets",&Z_pt_j,"Z_pt_from_jets/D");
-    tree_Z_j->Branch("Z_m_from_jets",&Z_m_j,"Z_m_from_jets/D");
-
 
     m_jetCleaning = new JetCleaningTool("JetCleaning");
     return EL::StatusCode::SUCCESS;
@@ -220,13 +211,13 @@ EL::StatusCode SearchInxAOD :: execute ()
     for (int i = 0; i < (int)Z_from_electrons.size(); i++) {
         Z_m_e = Z_from_electrons[i].M();
         Z_pt_e = Z_from_electrons[i].Pt();
-        tree_Z_e->Fill();
+        tree_Z_e->Fill(Z_m_e,Z_pt_e);
     }
 
     for (int j = 0; j < (int)Z_from_muons.size(); j++) {
         Z_m_mu = Z_from_muons[j].M();
         Z_pt_mu  = Z_from_muons[j].Pt();
-        tree_Z_mu->Fill();
+        tree_Z_mu->Fill(Z_m_mu,Z_pt_mu);
     }
 
     if (Z_from_jets.size() != 0 ) {
@@ -234,7 +225,7 @@ EL::StatusCode SearchInxAOD :: execute ()
             Z_m_j = Z_from_jets[k].M();
             Z_pt_j  = Z_from_jets[k].Pt();
             cout << Z_m_j << endl;
-            tree_Z_j->Fill();
+            tree_Z_j->Fill(Z_m_j,Z_pt_j);
         }
     }
     return EL::StatusCode::SUCCESS;
