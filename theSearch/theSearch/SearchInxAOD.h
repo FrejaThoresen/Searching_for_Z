@@ -19,6 +19,8 @@ public:
     TNtuple* tree_Z_mu; //!
     TNtuple* tree_Z_e; //!
     TNtuple* tree_Z_j; //!
+    TNtuple* chPFO; //!
+    TNtuple* neuPFO; //!
 
 
     int EventNumber; //!
@@ -44,6 +46,9 @@ public:
     Float_t Z_pt_e;//!
     Float_t Z_pt_mu;//!
     Float_t Z_pt_j;//!
+        Float_t neuPFOpt;//!
+    Float_t chPFOpt;//!
+
 
     // variables that don't get filled at submission time should be
     // protected from being send from the submission node to the worker

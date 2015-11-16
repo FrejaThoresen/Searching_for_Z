@@ -81,10 +81,14 @@ EL::StatusCode SearchInxAOD :: histInitialize ()
     tree_Z_mu = new TNtuple("tree_Z_mu", "tree_Z_mu","Z_m_mu:Z_pt_mu");
     tree_Z_e = new TNtuple("tree_Z_e", "tree_Z_e","Z_m_e:Z_pt_e");
     tree_Z_j = new TNtuple("tree_Z_j", "tree_Z_j","Z_m_j:Z_pt_j");
+    chPFO = new TNtuple("chPFO", "chPFO","chPFOpt");
+    neuPFO = new TNtuple("neuPFO", "neuPFO","neuPFOpt");
 
     tree_Z_mu->SetDirectory (outputFile);
     tree_Z_e->SetDirectory (outputFile);
     tree_Z_j->SetDirectory (outputFile);
+    chPFO->SetDirectory (outputFile);
+    neuPFO->SetDirectory (outputFile);
 
     //tree->Branch("EventNumber", &EventNumber);
 
@@ -180,11 +184,45 @@ EL::StatusCode SearchInxAOD :: execute ()
     CutsInxAOD *analyzer = new CutsInxAOD();
 
 
-    const xAOD::PFOContainer* pflowForwardContainter;
-    const xAOD::PFOContainer* pflowCentralContainter;
+    //const xAOD::PFOContainer* pflowForwardContainter = 0;
+    //const xAOD::PFOContainer* pflowCentralContainter = 0;
 
-    EL_RETURN_CHECK("execute()",event->retrieve( pflowForwardContainter, "ParticleFlowIsoForwardEventShape" ));
-    EL_RETURN_CHECK("execute()",event->retrieve( pflowCentralContainter, "ParticleFlowIsoCentralEventShape" ));
+
+    const xAOD::PFOContainer* chPFOs = 0;
+    const xAOD::PFOContainer* neuPFOs = 0;
+
+
+    //EL_RETURN_CHECK("execute()",event->retrieve( pflowForwardContainter, "ParticleFlowIsoForwardEventShape" ));
+    //EL_RETURN_CHECK("execute()",event->retrieve( pflowCentralContainter, "ParticleFlowIsoCentralEventShape" ));
+
+    EL_RETURN_CHECK("execute()", event->retrieve( chPFOs,      "JetETMissChargedParticleFlowObjects" ) );
+    EL_RETURN_CHECK("execute()", event->retrieve( neuPFOs,     "JetETMissNeutralParticleFlowObjects" ) );
+
+
+      // * Charged.
+  xAOD::PFOContainer::const_iterator PFlowCharged_itr = chPFOs->begin();
+  xAOD::PFOContainer::const_iterator PFlowCharged_end = chPFOs->end();
+  for ( ; PFlowCharged_itr != PFlowCharged_end; ++PFlowCharged_itr) {
+    chPFOpt = (*PFlowCharged_itr)->pt();
+    cout << "PLOW ENERGY#########################################" << chPFOpt << endl;
+    chPFO->Fill(chPFOpt);
+  }
+
+
+    // * neutral.
+  xAOD::PFOContainer::const_iterator PFlowNeutral_itr = neuPFOs->begin();
+  xAOD::PFOContainer::const_iterator PFlowNeutral_end = neuPFOs->end();
+  for ( ; PFlowNeutral_itr != PFlowNeutral_end; ++PFlowNeutral_itr) {
+    neuPFOpt = (*PFlowNeutral_itr)->pt();
+    neuPFO->Fill(neuPFOpt);
+  }
+
+
+
+
+
+//    const xAOD::JetContainer* jets = 0;
+ //   EL_RETURN_CHECK("execute()",event->retrieve( jets, "AntiKt10LCTopoJets" ));//TauJets
 
 
     /*m_jetCleaning->msg().setLevel( MSG::DEBUG );
