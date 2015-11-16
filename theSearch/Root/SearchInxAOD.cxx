@@ -12,10 +12,14 @@
 #include "xAODMuon/MuonContainer.h"
 #include "xAODEgamma/ElectronContainer.h"
 
+
+
 #include <TTree.h>
 #include "TFile.h"
 #include <vector>
 #include "TLorentzVector.h"
+
+#include "xAODPFlow/PFOContainer.h"
 
 #include "theSearch/CutsInxAOD.h"
 #include "xAODJet/JetContainer.h"
@@ -175,7 +179,15 @@ EL::StatusCode SearchInxAOD :: execute ()
     // USING THE CUTS CLASS
     CutsInxAOD *analyzer = new CutsInxAOD();
 
-    m_jetCleaning->msg().setLevel( MSG::DEBUG );
+
+    const xAOD::PFOContainer* pflowForwardContainter;
+    const xAOD::PFOContainer* pflowCentralContainter;
+
+    EL_RETURN_CHECK("execute()",event->retrieve( pflowForwardContainter, "ParticleFlowIsoForwardEventShape" ));
+    EL_RETURN_CHECK("execute()",event->retrieve( pflowCentralContainter, "ParticleFlowIsoCentralEventShape" ));
+
+
+    /*m_jetCleaning->msg().setLevel( MSG::DEBUG );
 
     // get muon container of interest
     const xAOD::MuonContainer* muons = 0;
@@ -215,6 +227,7 @@ EL::StatusCode SearchInxAOD :: execute ()
             tree_Z_j->Fill(Z_m_j,Z_pt_j);
         }
     }
+    */
     return EL::StatusCode::SUCCESS;
 }
 

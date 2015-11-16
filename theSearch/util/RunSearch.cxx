@@ -33,12 +33,13 @@ char gridon = '1';
     // for grid
     if (*argv[2] == gridon) {
         SH::scanDQ2(sh,
-                    "mc15_13TeV.361610.PowhegPy8EG_CT10nloME_AZNLOCTEQ6L1_ZZqqll_mqq20mll20.merge.DAOD_HIGG2D4.e4054_s2608_s2183_r6869_r6282_p2419/");
+                    "mc15_13TeV.361610.PowhegPy8EG_CT10nloME_AZNLOCTEQ6L1_ZZqqll_mqq20mll20.merge.AOD.e4054_s2608_s2183_r6630_r6264/");
     }
     else {
         const char *inputFilePath = gSystem->ExpandPathName(
-                "/hep/storage/thoresen/mc15_13TeV.361610.PowhegPy8EG_CT10nloME_AZNLOCTEQ6L1_ZZqqll_mqq20mll20.merge.DAOD_HIGG2D4.e4054_s2608_s2183_r6869_r6282_p2419/");
-        SH::ScanDir().filePattern("DAOD_HIGG2D4.06464156.*").scan(sh, inputFilePath);
+
+                "/hep/storage/thoresen/ZZllqq_xAOD/mc15_13TeV.361610.PowhegPy8EG_CT10nloME_AZNLOCTEQ6L1_ZZqqll_mqq20mll20.merge.AOD.e4054_s2608_s2183_r6630_r6264/");
+        SH::ScanDir().filePattern("AOD.05771747._000001.pool.root.1 ").scan(sh, inputFilePath);
     }
 
 
