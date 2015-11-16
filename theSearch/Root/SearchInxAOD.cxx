@@ -73,13 +73,10 @@ EL::StatusCode SearchInxAOD :: histInitialize ()
     // trees.  This method gets called before any input files are
     // connected.
 
-    // get the output file, create a new TTree and connect it to that output
-    // define what branches will go in that tree
     TFile *outputFile = wk()->getOutputFile (outputName);
     tree_Z_mu = new TNtuple("tree_Z_mu", "tree_Z_mu","Z_m_mu:Z_pt_mu");
     tree_Z_e = new TNtuple("tree_Z_e", "tree_Z_e","Z_m_e:Z_pt_e");
     tree_Z_j = new TNtuple("tree_Z_j", "tree_Z_j","Z_m_j:Z_pt_j");
-
 
     tree_Z_mu->SetDirectory (outputFile);
     tree_Z_e->SetDirectory (outputFile);
@@ -174,12 +171,11 @@ EL::StatusCode SearchInxAOD :: execute ()
     //-------------------------------------------------------------------------------------------------------
     //------------------------------------------------ Z BOSONS ---------------------------------------------
     //-------------------------------------------------------------------------------------------------------
+
     // USING THE CUTS CLASS
     CutsInxAOD *analyzer = new CutsInxAOD();
 
-
     m_jetCleaning->msg().setLevel( MSG::DEBUG );
-
 
     // get muon container of interest
     const xAOD::MuonContainer* muons = 0;
@@ -194,15 +190,6 @@ EL::StatusCode SearchInxAOD :: execute ()
     analyzer->analyzeZbosonsFromJets(jets,m_jetCleaning);
     analyzer->analyzeZbosonsFromElectrons(electrons);
     analyzer->analyzeZbosonsFromMuons(muons);
-
-    // print
-    //analyzer->printZbosonsFromElectrons();
-    //analyzer->printZbosonsFromMuons();
-
-    //mu_vector_pos = analyzer->getMuonPos();
-    //mu_vector_neg = analyzer->getMuonNeg();
-    //e_vector_pos = analyzer->getElectronPos();
-    //e_vector_neg = analyzer->getElectronNeg();
 
     Z_from_electrons = analyzer->getZbosonsFromElectrons();
     Z_from_muons = analyzer->getZbosonsFromMuons();

@@ -129,7 +129,7 @@ void CutsInxAOD :: analyzeZbosonsFromElectrons(const xAOD::ElectronContainer* el
     if (e_vector_neg.size() != 0 && e_vector_pos.size() != 0) {
         for (unsigned int i = 0; i < e_vector_pos.size(); i++) {
             for (unsigned int j = 0; j < e_vector_neg.size(); j++) {
-                if ((e_vector_pos[i] + e_vector_neg[j]).M() < 400000) {
+                if ((e_vector_pos[i] + e_vector_neg[j]).M() > 400000) {
 
                     Z_from_electrons.push_back(e_vector_pos[i] + e_vector_neg[j]);
 
@@ -146,8 +146,9 @@ void CutsInxAOD :: analyzeZbosonsFromJets(const xAOD::JetContainer* jets,JetClea
 
     if (jet_vector.size() != 0) {
         for (unsigned int i = 0; i < jet_vector.size() - 1; i = i + 2) {
-            //if ((jet_vector[i].M() + jet_vector[i+1].M()) < 400000) {
-            Z_from_jets.push_back(jet_vector[i] + jet_vector[i+1]);
+            if ((jet_vector[i] + jet_vector[i+1]).M() > 400000) {
+                Z_from_jets.push_back(jet_vector[i] + jet_vector[i + 1]);
+            }
         }
     }
 
@@ -160,7 +161,7 @@ void CutsInxAOD :: analyzeZbosonsFromMuons(const xAOD::MuonContainer* muons) {
     if (mu_vector_neg.size() != 0 && mu_vector_pos.size() != 0) {
         for (unsigned int i = 0; i < mu_vector_pos.size(); i++) {
             for (unsigned int j = 0; j < mu_vector_neg.size(); j++) {
-                if ((mu_vector_pos[i] + mu_vector_neg[j]).M() < 400000) {
+                if ((mu_vector_pos[i] + mu_vector_neg[j]).M() > 400000) {
                     Z_from_muons.push_back(mu_vector_pos[i] + mu_vector_neg[j]);
                 }
             }
