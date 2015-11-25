@@ -1,5 +1,7 @@
 #include <theSearch/SearchInxAOD.h>
 //#include "theSearch/CutsInxAOD.h"
+#include <theSearch/Boildown.h>
+
 #ifdef __CINT__
 
 #pragma link off all globals;
@@ -10,5 +12,6 @@
 #ifdef __CINT__
 //#pragma link C++ class CutsInxAOD+;
 #pragma link C++ class SearchInxAOD+;
+#pragma link C++ class Boildown+;
 
 #endif
